@@ -1,6 +1,10 @@
 import { NavLink, Link } from "react-router-dom";
+import useAppContext from "../context/AppContext";
 
-function Navbar({ isDashboard = false }) {
+function Navbar() {
+
+    const {isDashboard:dashBoard} =useAppContext();
+
   const menuItems = [
     {
       name: "Home",
@@ -15,12 +19,12 @@ function Navbar({ isDashboard = false }) {
     {
       name: "About",
       href: "about",
-      isDashboard: true,
+      isDashboard: !dashBoard,
     },
     {
       name: "Contact Us",
       href: "contact",
-      isDashboard: true,
+      isDashboard: !dashBoard,
     },
   ];
 
@@ -53,7 +57,7 @@ function Navbar({ isDashboard = false }) {
             )}
           </ul>
         </div>
-        {isDashboard ? (
+        {dashBoard ? (
           ""
         ) : (
           <div className="hidden space-x-2 lg:block">

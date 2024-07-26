@@ -1,25 +1,26 @@
 import { Link } from "react-router-dom";
 
-const footerItem = [
-  {
-    name: "Privacy Policy",
-    href: "#",
-  },
-  {
-    name: "Terms of Service",
-    href: "#",
-  },
-  {
-    name: "Return Policy",
-    href: "#",
-  },
-  {
-    name: "Contact Us",
-    href: "contact",
-  },
-];
-
 function Footer() {
+
+  const footerItem = [
+    {
+      name: "Privacy Policy",
+      href: "#",
+    },
+    {
+      name: "Terms of Service",
+      href: "#",
+    },
+    {
+      name: "Return Policy",
+      href: "#",
+    },
+    {
+      name: "Contact Us",
+      href: "contact",
+    },
+  ];
+  
   return (
     <section className="relative overflow-hidden bg-black py-5">
       <div className="container relative z-10 mx-auto px-4">

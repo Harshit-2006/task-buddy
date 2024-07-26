@@ -1,7 +1,7 @@
 function AboutUs() {
   return (
-    <div className="bg-gray-900 text-gray-100 min-h-screen flex items-center justify-center">
-      <div className="bg-gray-800 p-6 rounded-lg shadow-lg max-w-2xl">
+    <div className="bg-[#121212] text-gray-100 min-h-screen flex items-center justify-center">
+      <div className="bg-[#212121] p-6 rounded-lg shadow-lg max-w-2xl">
         <h1 className="text-4xl font-bold text-orange-500 mb-4 text-center">
           About Us
         </h1>

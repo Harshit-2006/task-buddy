@@ -11,6 +11,7 @@ import LandingPage from "./LandingPage";
 import ContactUs from "./InfoComponents/ContactUs";
 import AboutUs from "./InfoComponents/About";
 import NotFound from "./NotFound";
+import Dashboard from "./Dashboard";
 
 export {
   Footer,
@@ -26,4 +27,5 @@ export {
   ContactUs,
   AboutUs,
   NotFound,
+  Dashboard,
 };

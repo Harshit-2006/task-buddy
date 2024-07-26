@@ -21,7 +21,9 @@ function App() {
         <AppContextProvider value={{isDashboard,dashboard,notDashboard}}>
         <Header />
         <Outlet />
-        <Footer />
+        {
+          isDashboard ?"":<Footer />
+        }
         </AppContextProvider>
     </>
   );

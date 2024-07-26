@@ -1,6 +1,16 @@
 import { ChevronDown, ChevronUp } from "lucide-react";
+import useAppContext from "../context/AppContext";
+import { useEffect } from "react";
+
 
 function LandingPage() {
+
+  const {notDashboard}=useAppContext()
+
+  useEffect(()=>{
+    notDashboard();
+  },[])
+
   return (
     <div className="w-full">
       {/* Hero Section */}
