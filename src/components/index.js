@@ -1,5 +1,5 @@
 import Footer from "./Footer";
-import SignIn  from "./SignIn ";
+import SignIn from "./SignIn ";
 import Navbar from "./Navbar";
 import SignUp from "./SignUp";
 import TodoCard from "./TodoCard";
@@ -10,10 +10,11 @@ import Header from "./Header";
 import LandingPage from "./LandingPage";
 import ContactUs from "./InfoComponents/ContactUs";
 import AboutUs from "./InfoComponents/About";
+import NotFound from "./NotFound";
 
 export {
   Footer,
-  SignIn ,
+  SignIn,
   Navbar,
   SignUp,
   TodoCard,
@@ -24,4 +25,5 @@ export {
   LandingPage,
   ContactUs,
   AboutUs,
+  NotFound,
 };

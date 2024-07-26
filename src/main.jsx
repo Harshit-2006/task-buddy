@@ -12,6 +12,7 @@ import SignUp from "./pages/SignUp.jsx";
 import SignIn from "./pages/SignIn.jsx";
 import ContactUs from "./pages/ContactUs.jsx";
 import AboutUs from "./pages/AboutUs.jsx";
+import NotFound from "./pages/NotFound.jsx";
 import App from "./App.jsx";
 
 const router = createBrowserRouter(
@@ -22,7 +23,7 @@ const router = createBrowserRouter(
       <Route path="/login" element={<SignIn />} />
       <Route path="/contact" element={<ContactUs />} />
       <Route path="/about" element={<AboutUs />} />
-      <Route path="*" element={<h1>Not found</h1>} />
+      <Route path="*" element={<NotFound />} />
     </Route>
   )
 );
