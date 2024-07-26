@@ -6,24 +6,29 @@ import {
   createRoutesFromElements,
   Route,
   RouterProvider,
-} from "react-router-dom"; 
+} from "react-router-dom";
 import Home from "./pages/Home.jsx";
 import SignUp from "./pages/SignUp.jsx";
-import Login from "./pages/Login.jsx";
+import SignIn from "./pages/SignIn.jsx";
+import ContactUs from "./pages/ContactUs.jsx";
+import AboutUs from "./pages/AboutUs.jsx";
+import App from "./App.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route>
+    <Route path="/" element={<App />}>
       <Route path="/" element={<Home />} />
       <Route path="/signup" element={<SignUp />} />
-      <Route path="/login" element={<Login />} />
-      <Route path="*" element={<h1>Not found</h1>}/>
+      <Route path="/login" element={<SignIn />} />
+      <Route path="/contact" element={<ContactUs />} />
+      <Route path="/about" element={<AboutUs />} />
+      <Route path="*" element={<h1>Not found</h1>} />
     </Route>
   )
 );
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router}/>
+    <RouterProvider router={router} />
   </React.StrictMode>
 );

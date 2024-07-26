@@ -1,11 +1,9 @@
-import { Header,Footer,SignUp } from "../components"
+import {LandingPage} from "../components"
 
 function Home() {
   return (
     <>
-        <Header />
-        <SignUp />
-        <Footer />
+      <LandingPage />
     </>
   )
 }

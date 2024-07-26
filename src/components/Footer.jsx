@@ -21,12 +21,12 @@ const footerItem = [
 
 function Footer() {
   return (
-    <section className="relative overflow-hidden bg-black py-8">
+    <section className="relative overflow-hidden bg-black py-5">
       <div className="container relative z-10 mx-auto px-4">
         <div className="-m-8 flex flex-wrap items-center justify-between">
           <div className="w-auto p-8">
             <Link to="/" className="font-bold text-orange-500">
-            Task Buddy
+            Task Buddy © 2024
             </Link>
           </div>
           <div className="w-auto p-8">
