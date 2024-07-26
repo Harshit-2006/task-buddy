@@ -1,6 +1,3 @@
-import "./App.css";
-import { Navbar,SignUp,Login,Footer } from "./components";
-
 function App() {
   return (
     <>
@@ -10,3 +7,4 @@ function App() {
 }
 
 export default App;
+
