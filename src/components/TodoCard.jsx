@@ -1,4 +1,4 @@
-function TodoCard({title,description}) {
+function TodoCard({ title, description }) {
   return (
     <section className="relative overflow-hidden py-10">
       <div className="relative mx-auto max-w-7xl px-4">
@@ -26,19 +26,6 @@ function TodoCard({title,description}) {
                   </ul>
                 </div>
                 <div className="flex justify-center space-x-5 mt-7 border-t border-orange-500 pt-5">
-                  <button
-                    type="button"
-                    className=" rounded-md bg-white px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      x="0px"
-                      y="0px"
-                      width="30"
-                      height="30"
-                      viewBox="0 0 24 24">
-                      <path d="M12,2C6.5,2,2,6.5,2,12s4.5,10,10,10s10-4.5,10-10S17.5,2,12,2z M16,13h-3v3c0,0.6-0.4,1-1,1s-1-0.4-1-1v-3H8	c-0.6,0-1-0.4-1-1s0.4-1,1-1h3V8c0-0.6,0.4-1,1-1s1,0.4,1,1v3h3c0.6,0,1,0.4,1,1S16.6,13,16,13z"></path>
-                    </svg>
-                  </button>
                   <button
                     type="button"
                     className=" rounded-md bg-white px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
