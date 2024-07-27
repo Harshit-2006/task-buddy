@@ -13,7 +13,9 @@ import SignIn from "./pages/SignIn.jsx";
 import ContactUs from "./pages/ContactUs.jsx";
 import AboutUs from "./pages/AboutUs.jsx";
 import NotFound from "./pages/NotFound.jsx";
-import Dashboard from "./pages/Dashboard.jsx"
+import Dashboard from "./pages/Dashboard.jsx";
+import { DashboardContextProvider } from "./contexts/dashboardContext.jsx";
+import { ErrorContextProvider } from "./contexts/errorContext.jsx";
 import App from "./App.jsx";
 
 const router = createBrowserRouter(
@@ -32,6 +34,10 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <DashboardContextProvider>
+      <ErrorContextProvider>
+          <RouterProvider router={router} />
+      </ErrorContextProvider>
+    </DashboardContextProvider>
   </React.StrictMode>
 );
