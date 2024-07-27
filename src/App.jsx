@@ -1,33 +1,17 @@
-
-import { Header,Footer } from "./components"; 
+import { Header, Footer } from "./components";
 import { Outlet } from "react-router-dom";
-import  {AppContextProvider} from "./context/AppContext";
-import { useState } from "react";
+import useDashboardContext from "./contexts/dashboardContext";
 
 function App() {
-
-  const [isDashboard, setIsDashboard] = useState(false);
-
-  const dashboard=()=>{
-    setIsDashboard(true);
-  }
-
-  const notDashboard=()=>{
-    setIsDashboard(false);
-  }
+  const { isDashboard } = useDashboardContext();
 
   return (
     <>
-        <AppContextProvider value={{isDashboard,dashboard,notDashboard}}>
-        <Header />
-        <Outlet />
-        {
-          isDashboard ?"":<Footer />
-        }
-        </AppContextProvider>
+          <Header />
+          <Outlet />
+          {!isDashboard && <Footer />}
     </>
   );
 }
 
 export default App;
-
