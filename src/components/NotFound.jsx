@@ -16,10 +16,10 @@ function NotFound() {
         <div className="mt-6 flex items-center justify-center gap-x-4">
           <button
             type="button"
-            onClick={()=>navigate(-1)}
+            onClick={()=>navigate("/")}
             className="inline-flex items-center rounded-md border border-orange-500 px-3 py-2 text-sm font-semibold text-orange-500 shadow-sm bg-black hover:bg-gray-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500">
             <ArrowLeft size={16} className="mr-2" />
-            Go back
+            Go back home
           </button>
           <Link
             to="contact"
