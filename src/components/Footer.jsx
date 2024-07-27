@@ -17,7 +17,7 @@ function Footer() {
     },
     {
       name: "Contact Us",
-      href: "contact",
+      href: "/contact",
     },
   ];
   

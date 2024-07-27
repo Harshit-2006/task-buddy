@@ -1,11 +1,11 @@
 import { ChevronDown, ChevronUp } from "lucide-react";
-import useAppContext from "../context/AppContext";
+import useDashboardContext from "../contexts/dashboardContext";
 import { useEffect } from "react";
 
 
 function LandingPage() {
 
-  const {notDashboard}=useAppContext()
+  const {notDashboard}=useDashboardContext()
 
   useEffect(()=>{
     notDashboard();

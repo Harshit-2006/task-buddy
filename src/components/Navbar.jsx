@@ -1,9 +1,9 @@
 import { NavLink, Link } from "react-router-dom";
-import useAppContext from "../context/AppContext";
+import useDashboardContext from "../contexts/dashboardContext";
 
 function Navbar() {
 
-    const {isDashboard:dashBoard} =useAppContext();
+    const {isDashboard:dashBoard} =useDashboardContext();
 
   const menuItems = [
     {
