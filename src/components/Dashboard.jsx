@@ -1,20 +1,16 @@
-import useAppContext from "../context/AppContext";
+import useDashboardContext from "../contexts/dashboardContext";
 import { useEffect, useState } from "react";
 import Modal from "./ModalWindow/Modal";
 import TodoForm from "./ModalWindow/TodoForm";
 import TodoCard from "./TodoCard";
 
 function Dashboard() {
-  const { dashboard } = useAppContext();
+  const { dashboard } = useDashboardContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  function openModal() {
-    setIsModalOpen(true);
-  }
+  const openModal = () => setIsModalOpen(true);
 
-  function closeModal() {
-    setIsModalOpen(false);
-  }
+  const closeModal = () => setIsModalOpen(false);
 
   useEffect(() => {
     dashboard();
