@@ -36,9 +36,7 @@ export class AuthService {
   // function to login user to the app
   async login({ email, password }) {
     try {
-      // const sessionId = window.localStorage.getItem("cookieFallback");
-      // //logging out the user if he is still logged in
-      // this.logout(sessionId);
+      this.logout();
       const session = await this.account.createEmailPasswordSession(
         email,
         password

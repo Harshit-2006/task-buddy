@@ -1,6 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import authService from "../appwrite/auth";
 import useErrorContext from "../contexts/errorContext";
 import Modal from "./ModalWindow/Modal";
@@ -9,6 +9,11 @@ import Error from "./ModalWindow/Error";
 function SignIn() {
   const { error, errorText, errorExists, errorNotExists, errorMessage } =
     useErrorContext();
+
+  //adding useEffect that will openModal on the mount of this component if the error exists
+  useEffect(() => {
+    if (error) openModal();
+  }, []);
 
   // to control the modal window
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -46,7 +51,7 @@ function SignIn() {
       console.log(response);
     } else if (response === 401 || response === 400) {
       errorExists();
-      errorMessage("Invalid credentials. Please check the email and password.")
+      errorMessage("Invalid credentials. Please check the email and password.");
       openModal();
     } else if (response === 429) {
       errorExists();
