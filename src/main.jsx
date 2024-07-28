@@ -16,6 +16,7 @@ import NotFound from "./pages/NotFound.jsx";
 import Dashboard from "./pages/Dashboard.jsx";
 import { DashboardContextProvider } from "./contexts/dashboardContext.jsx";
 import { ErrorContextProvider } from "./contexts/errorContext.jsx";
+import { UserDataContextProvider } from "./contexts/userDataContext.jsx";
 import App from "./App.jsx";
 
 const router = createBrowserRouter(
@@ -34,10 +35,12 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <DashboardContextProvider>
-      <ErrorContextProvider>
+    <UserDataContextProvider>
+      <DashboardContextProvider>
+        <ErrorContextProvider>
           <RouterProvider router={router} />
-      </ErrorContextProvider>
-    </DashboardContextProvider>
+        </ErrorContextProvider>
+      </DashboardContextProvider>
+    </UserDataContextProvider>
   </React.StrictMode>
 );
