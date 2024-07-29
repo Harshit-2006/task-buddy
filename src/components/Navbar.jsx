@@ -1,7 +1,10 @@
 import { NavLink, Link } from "react-router-dom";
 import useDashboardContext from "../contexts/dashboardContext";
+import useUserDataContext from "../contexts/userDataContext";
 
 function Navbar() {
+
+    const {userData}=useUserDataContext();
 
     const {isDashboard:dashBoard} =useDashboardContext();
 
@@ -14,7 +17,7 @@ function Navbar() {
     {
       name: "Dashboard",
       href: "dashboard",
-      isDashboard: true,
+      isDashboard: userData.$id?true:false,
     },
     {
       name: "About",

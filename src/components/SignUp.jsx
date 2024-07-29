@@ -6,8 +6,13 @@ import { useNavigate } from "react-router-dom";
 import useErrorContext from "../contexts/errorContext";
 import Modal from "./ModalWindow/Modal";
 import Error from "./ModalWindow/Error";
+import useUserDataContext from "../contexts/userDataContext";
 
 function SignUp() {
+
+  const {updateUserData}=useUserDataContext();
+
+
   const { error, errorText, errorExists, errorNotExists, errorMessage } =
     useErrorContext();
 
@@ -46,6 +51,7 @@ function SignUp() {
     if (response.$id) {
       // store the account created to the context or state
       console.log(response);
+      updateUserData(response);
     } else if (response === 409) {
       // modal window for the login to tell the user that try sigin as user exists
       errorExists();

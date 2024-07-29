@@ -1,13 +1,13 @@
 import { createContext,useContext, useState } from "react";
 
 const userDataContext=createContext({
-    userData:"",
+    userData:{},
     updateUserData:()=>{}
 });
 
 
 function UserDataContextProvider({children}){
-    const [userData,setUserData]=useState("");
+    const [userData,setUserData]=useState({});
 
     const updateUserData=(data)=>setUserData(data);
 
