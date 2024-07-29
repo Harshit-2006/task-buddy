@@ -9,9 +9,7 @@ import Error from "./ModalWindow/Error";
 import useUserDataContext from "../contexts/userDataContext";
 
 function SignUp() {
-
-  const {updateUserData}=useUserDataContext();
-
+  const { updateUserData, updateSessionCookie } = useUserDataContext();
 
   const { error, errorText, errorExists, errorNotExists, errorMessage } =
     useErrorContext();
@@ -51,7 +49,11 @@ function SignUp() {
     if (response.$id) {
       // store the account created to the context or state
       console.log(response);
+      updateSessionCookie(window.localStorage.getItem("cookieFallback"));
+      // console log the sessionCookie for check
+      console.log(window.localStorage.getItem("cookieFallback"));
       updateUserData(response);
+      console.log(window.localStorage.getItem("cookieFallback"));
     } else if (response === 409) {
       // modal window for the login to tell the user that try sigin as user exists
       errorExists();
@@ -65,7 +67,7 @@ function SignUp() {
     } else {
       // change the global state to bring a modal window that says that error occurred try again some times later
       errorExists();
-      errorMessage(" Error Occurred :: Try Again Later")
+      errorMessage(" Error Occurred :: Try Again Later");
       openModal();
     }
     setUserData({

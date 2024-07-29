@@ -4,7 +4,7 @@ import useUserDataContext from "../contexts/userDataContext";
 
 function Navbar() {
 
-    const {userData}=useUserDataContext();
+    const {sessionCookie}=useUserDataContext();
 
     const {isDashboard:dashBoard} =useDashboardContext();
 
@@ -17,7 +17,7 @@ function Navbar() {
     {
       name: "Dashboard",
       href: "dashboard",
-      isDashboard: userData.$id?true:false,
+      isDashboard: sessionCookie?true:false,
     },
     {
       name: "About",

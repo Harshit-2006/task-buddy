@@ -1,27 +1,30 @@
-import { createContext,useContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
-const userDataContext=createContext({
-    userData:{},
-    updateUserData:()=>{}
+const userDataContext = createContext({
+  userData: {},
+  sessionCookie: null,
+  updateUserData: () => {},
+  updateSessionCookie: () => {},
 });
 
+function UserDataContextProvider({ children }) {
+  const [userData, setUserData] = useState({});
+  const [sessionCookie, setSessionCookie] = useState(null);
 
-function UserDataContextProvider({children}){
-    const [userData,setUserData]=useState({});
+  const updateUserData = (data) => setUserData(data);
+  const updateSessionCookie = (data) => setSessionCookie(data);
 
-    const updateUserData=(data)=>setUserData(data);
-
-
-    return(
-        <userDataContext.Provider value={{userData,updateUserData}}>
-            {children}
-        </userDataContext.Provider>
-    )
+  return (
+    <userDataContext.Provider
+      value={{ userData, sessionCookie, updateUserData, updateSessionCookie }}>
+      {children}
+    </userDataContext.Provider>
+  );
 }
 
-function useUserDataContext(){
-    return useContext(userDataContext);
+function useUserDataContext() {
+  return useContext(userDataContext);
 }
 
 export default useUserDataContext;
-export {useUserDataContext,UserDataContextProvider}
+export { useUserDataContext, UserDataContextProvider };
