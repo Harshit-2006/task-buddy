@@ -3,8 +3,12 @@ import { useEffect, useState } from "react";
 import Modal from "./ModalWindow/Modal";
 import TodoForm from "./ModalWindow/TodoForm";
 import TodoCard from "./TodoCard";
+import useUserDataContext from "../contexts/userDataContext";
+import authService from "../appwrite/auth";
 
 function Dashboard() {
+  const {updateUserData}=useUserDataContext();
+
   const { dashboard } = useDashboardContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -14,6 +18,14 @@ function Dashboard() {
 
   useEffect(() => {
     dashboard();
+    async function fetchUserData(){
+      try{
+        await authService.getCurrentUser();
+      } catch(error){
+          
+      }
+    }
+    fetchUserData();
   }, []);
 
   return (

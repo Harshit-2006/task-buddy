@@ -67,7 +67,8 @@ export class AuthService {
       return user;
     } catch (error) {
       console.log("Appwrite service :: getCurrentUser :: error", error);
-      throw error;
+      console.log("Appwrite service :: getCurrentUser :: error", error.code);
+      return{err:error,message:error};
     }
   }
 }

@@ -28,7 +28,7 @@ class Service {
       );
     } catch (error) {
       console.error("Appwrite service :: createTodo :: error", error);
-      throw error;
+      return {err:error,message:error};
     }
   }
 

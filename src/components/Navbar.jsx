@@ -25,7 +25,7 @@ function Navbar() {
     {
       name: "Dashboard",
       href: "/dashboard",
-      isDashboard:(sessionCookie&&sessionCookie!=="[]")? true : false,
+      isDashboard:(sessionCookie)? true : false,
     },
     {
       name: "About",
@@ -41,6 +41,7 @@ function Navbar() {
 
   async function handleClick(){
     await authService.logout();
+    window.localStorage.clear();
     updateSessionCookie("");
     navigate("/")
   }

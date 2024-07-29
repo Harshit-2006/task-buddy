@@ -1,7 +1,7 @@
 import { createContext, useContext, useState } from "react";
 
 const userDataContext = createContext({
-  userData: {},
+  userData: null,
   sessionCookie: null,
   updateUserData: () => {},
   updateSessionCookie: () => {},

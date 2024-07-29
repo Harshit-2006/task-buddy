@@ -46,8 +46,6 @@ function SignIn() {
     console.log(userData);
     authService.logout();
     const response = await authService.login(userData);
-    // console log to check the response code
-    console.log(response);
     if (response.$id) {
       setUserData({
         email: "",
