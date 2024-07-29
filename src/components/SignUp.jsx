@@ -48,12 +48,10 @@ function SignUp() {
     // error handeling if the user already exists
     if (response.$id) {
       // store the account created to the context or state
-      console.log(response);
       updateSessionCookie(window.localStorage.getItem("cookieFallback"));
       // console log the sessionCookie for check
       console.log(window.localStorage.getItem("cookieFallback"));
       updateUserData(response);
-      console.log(window.localStorage.getItem("cookieFallback"));
     } else if (response === 409) {
       // modal window for the login to tell the user that try sigin as user exists
       errorExists();

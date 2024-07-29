@@ -1,12 +1,16 @@
 import { NavLink, Link } from "react-router-dom";
 import useDashboardContext from "../contexts/dashboardContext";
 import useUserDataContext from "../contexts/userDataContext";
+import { useEffect } from "react";
 
 function Navbar() {
+  const { sessionCookie, updateSessionCookie } = useUserDataContext();
 
-    const {sessionCookie}=useUserDataContext();
+  useEffect(() => {
+    updateSessionCookie(window.localStorage.getItem("cookieFallback"));
+  }, []);
 
-    const {isDashboard:dashBoard} =useDashboardContext();
+  const { isDashboard: dashBoard } = useDashboardContext();
 
   const menuItems = [
     {
@@ -17,7 +21,7 @@ function Navbar() {
     {
       name: "Dashboard",
       href: "dashboard",
-      isDashboard: sessionCookie?true:false,
+      isDashboard: sessionCookie ? true : false,
     },
     {
       name: "About",
