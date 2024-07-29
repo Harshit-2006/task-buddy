@@ -1,15 +1,31 @@
 import { ChevronDown, ChevronUp } from "lucide-react";
 import useDashboardContext from "../contexts/dashboardContext";
 import { useEffect } from "react";
-
+import useUserDataContext from "../contexts/userDataContext";
+import authService from "../appwrite/auth";
 
 function LandingPage() {
+  const { updateSessionCookie } = useUserDataContext();
 
-  const {notDashboard}=useDashboardContext()
+  const { notDashboard } = useDashboardContext();
 
-  useEffect(()=>{
+  useEffect(() => {
     notDashboard();
-  },[])
+    async function fetchSessionData() {
+      try {
+        const res = await authService.getCurrentUser();
+        if (res.err) {
+          updateSessionCookie("");
+        } else {
+          updateSessionCookie(res);
+        }
+      } catch (error) {
+        console.log("error fetching the session :: ", error);
+        updateSessionCookie("");
+      }
+    }
+    fetchSessionData();
+  }, []);
 
   return (
     <div className="w-full">
@@ -21,7 +37,8 @@ function LandingPage() {
               Organize your tasks effortlessly with Task Buddy
             </h1>
             <p className="mt-8 text-lg text-gray-300">
-              Stay on top of your tasks and boost your productivity with Task Buddy. Create, manage, and track your to-do list seamlessly.
+              Stay on top of your tasks and boost your productivity with Task
+              Buddy. Create, manage, and track your to-do list seamlessly.
             </p>
             <form action="" className="mt-8 flex items-start space-x-2">
               <div>
@@ -75,7 +92,8 @@ function LandingPage() {
               Fast & Easy to Use
             </h3>
             <p className="mt-4 text-sm text-gray-300">
-              Task Buddy is designed to be fast and easy to use, so you can focus on getting things done.
+              Task Buddy is designed to be fast and easy to use, so you can
+              focus on getting things done.
             </p>
           </div>
           <div className="text-center max-w-xs">
@@ -98,7 +116,8 @@ function LandingPage() {
               Light & Dark Modes
             </h3>
             <p className="mt-4 text-sm text-gray-300">
-              Choose between light and dark modes to suit your preference and work comfortably,Currently not available.
+              Choose between light and dark modes to suit your preference and
+              work comfortably,Currently not available.
             </p>
           </div>
         </div>
@@ -128,7 +147,9 @@ function LandingPage() {
               </button>
               <div className="px-4 pb-5 sm:px-6 sm:pb-6">
                 <p className="text-gray-400">
-                  To get started with Task Buddy, simply create an account and start adding your tasks. You can organize your tasks into different categories and track their progress.
+                  To get started with Task Buddy, simply create an account and
+                  start adding your tasks. You can organize your tasks into
+                  different categories and track their progress.
                 </p>
               </div>
             </div>

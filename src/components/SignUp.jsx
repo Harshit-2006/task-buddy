@@ -9,7 +9,7 @@ import Error from "./ModalWindow/Error";
 import useUserDataContext from "../contexts/userDataContext";
 
 function SignUp() {
-  const { updateUserData, updateSessionCookie } = useUserDataContext();
+  const { updateUserData } = useUserDataContext();
 
   const { error, errorText, errorExists, errorNotExists, errorMessage } =
     useErrorContext();
@@ -41,23 +41,19 @@ function SignUp() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    //userData to the console screen for check
-    console.log(userData);
+    await authService.logout();
     const response = await authService.createAccount(userData);
     console.log(response);
     // error handeling if the user already exists
     if (response.$id) {
       // store the account created to the context or state
-      updateSessionCookie(window.localStorage.getItem("cookieFallback"));
-      // console log the sessionCookie for check
-      console.log(window.localStorage.getItem("cookieFallback"));
       updateUserData(response);
-      navigate("/dashboard");
+      navigate(`/dashboard/${response.userId}`);
     } else if (response === 409) {
       // modal window for the login to tell the user that try sigin as user exists
       errorExists();
       errorMessage("Try SignIn User Already Exists");
-      navigate("/login");
+      navigate("/signin");
     } else if (response === 429) {
       //change the global state to bring a modal window that says that the rate limit exceeds .
       errorExists();

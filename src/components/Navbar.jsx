@@ -1,18 +1,12 @@
-import { NavLink, Link,useNavigate } from "react-router-dom";
+import { NavLink, Link, useNavigate } from "react-router-dom";
 import useDashboardContext from "../contexts/dashboardContext";
 import useUserDataContext from "../contexts/userDataContext";
-import { useEffect } from "react";
 import authService from "../appwrite/auth";
 
 function Navbar() {
-
-  const navigate=useNavigate();
-
   const { sessionCookie, updateSessionCookie } = useUserDataContext();
 
-  useEffect(() => {
-    updateSessionCookie(window.localStorage.getItem("cookieFallback"));
-  }, [updateSessionCookie]);
+  const navigate = useNavigate();
 
   const { isDashboard: dashBoard } = useDashboardContext();
 
@@ -25,7 +19,7 @@ function Navbar() {
     {
       name: "Dashboard",
       href: "/dashboard",
-      isDashboard:(sessionCookie)? true : false,
+      isDashboard: sessionCookie ? true : false,
     },
     {
       name: "About",
@@ -39,11 +33,10 @@ function Navbar() {
     },
   ];
 
-  async function handleClick(){
+  async function handleSignOut() {
     await authService.logout();
-    window.localStorage.clear();
     updateSessionCookie("");
-    navigate("/")
+    navigate("/");
   }
 
   return (
@@ -102,7 +95,7 @@ function Navbar() {
           {/* logout button */}
           {dashBoard && (
             <button
-              onClick={handleClick}
+              onClick={handleSignOut}
               className={`rounded-md border md:py-0.5 px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500 hover:bg-orange-500 hover:text-black hover:border-orange-500`}>
               Sign Out
             </button>

@@ -10,7 +10,7 @@ import useUserDataContext from "../contexts/userDataContext";
 function SignIn() {
   const navigate = useNavigate();
 
-  const { updateUserData, updateSessionCookie } = useUserDataContext();
+  const { updateUserData} = useUserDataContext();
 
   const { error, errorText, errorExists, errorNotExists, errorMessage } =
     useErrorContext();
@@ -44,17 +44,17 @@ function SignIn() {
   async function handleSubmit(e) {
     e.preventDefault();
     console.log(userData);
-    authService.logout();
+    await authService.logout();
     const response = await authService.login(userData);
+    // console log to check the response code
+    console.log(response);
     if (response.$id) {
-      setUserData({
+      setUserData({ 
         email: "",
         password: "",
       });
-      console.log(response);
-      updateSessionCookie(window.localStorage.getItem("cookieFallback"));
       updateUserData(response);
-      navigate("/dashboard");
+      navigate(`/dashboard/${response.userId}`);
     } else if (response === 401 || response === 400) {
       errorExists();
       errorMessage("Invalid credentials. Please check the email and password.");

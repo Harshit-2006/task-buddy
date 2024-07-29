@@ -3,12 +3,19 @@ import { useEffect, useState } from "react";
 import Modal from "./ModalWindow/Modal";
 import TodoForm from "./ModalWindow/TodoForm";
 import TodoCard from "./TodoCard";
-import useUserDataContext from "../contexts/userDataContext";
 import authService from "../appwrite/auth";
+import service from "../appwrite/config";
+import useUserDataContext from "../contexts/userDataContext";
+import { useParams } from "react-router-dom";
 
 function Dashboard() {
-  const {updateUserData}=useUserDataContext();
+  // to get the user id from the parameter of the url.
+  const { userId } = useParams();
 
+  // state to update the todos
+  const [todos, setTodos] = useState([]);
+
+  const { updateSessionCookie } = useUserDataContext();
   const { dashboard } = useDashboardContext();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -17,15 +24,39 @@ function Dashboard() {
   const closeModal = () => setIsModalOpen(false);
 
   useEffect(() => {
+    // calling dashboard to prevent sign out, sign in, about, contact from showing in the dashboard when dashboard is on
     dashboard();
-    async function fetchUserData(){
-      try{
-        await authService.getCurrentUser();
-      } catch(error){
-          
+    // update the session cookie
+    async function fetchSessionData() {
+      try {
+        const res = await authService.getCurrentUser();
+        if (res.err) {
+          updateSessionCookie("");
+        } else {
+          updateSessionCookie(res);
+        }
+      } catch (error) {
+        console.log("error fetching the session :: ", error);
+        updateSessionCookie("");
       }
     }
-    fetchUserData();
+    fetchSessionData();
+
+    async function getTodosFromDatabase() {
+      try {
+        const res = await service.getTodos(userId);
+        if (res.err) {
+          // error fetching from the database service unavailable and update the error and bring the error modal on the screen,
+        } else {
+          setTodos(res);
+          console.log("The database response is ::", res);
+        }
+      } catch (error) {
+        console.log("error fetching the todos from the database :: ", error);
+        setTodos([]);
+      }
+    }
+    getTodosFromDatabase();
   }, []);
 
   return (
@@ -34,8 +65,19 @@ function Dashboard() {
         <TodoForm />
       </Modal>
 
-      <TodoCard />
-      <div className="relative h-full min-h-[100vh] bg-[#121212]">
+      {/* Display todos in a horizontal layout */}
+      <div className="flex flex-wrap gap-4 p-4">
+        {todos &&
+          todos.map((item) => (
+            <TodoCard
+              key={item.$id}
+              title={item.title}
+              description={item.description}
+              status={item.status}
+            />
+          ))}
+      </div>
+        
         <button
           type="button"
           onClick={openModal}
@@ -50,7 +92,6 @@ function Dashboard() {
             <path d="M12,2C6.5,2,2,6.5,2,12s4.5,10,10,10s10-4.5,10-10S17.5,2,12,2z M16,13h-3v3c0,0.6-0.4,1-1,1s-1-0.4-1-1v-3H8	c-0.6,0-1-0.4-1-1s0.4-1,1-1h3V8c0-0.6,0.4-1,1-1s1,0.4,1,1v3h3c0.6,0,1,0.4,1,1S16.6,13,16,13z"></path>
           </svg>
         </button>
-      </div>
     </>
   );
 }

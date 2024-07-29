@@ -24,13 +24,13 @@ function TodoForm() {
   const { error, errorText, errorExists, errorNotExists, errorMessage } =
     useErrorContext();
 
-  const { userData } = useUserDataContext();
+  const { sessionCookie } = useUserDataContext();
 
   const [todo, setTodo] = useState({
     title: "",
     description: "",
     status: "inactive",
-    userId: userData.$id,
+    userId: sessionCookie.$id,
   });
 
   function handleChange(e) {
@@ -48,7 +48,10 @@ function TodoForm() {
       errorExists();
       errorMessage("Error Creating Todo....");
       openModal();
-    } 
+    } else{
+      closeModal();
+      navigate(`/dashboard/${sessionCookie["$id"]}`);
+    }
   }
 
   return (

@@ -27,10 +27,7 @@ const router = createBrowserRouter(
       <Route path="/signin" element={<SignIn />} />
       <Route path="/contact" element={<ContactUs />} />
       <Route path="/about" element={<AboutUs />} />
-      <Route path="/dashboard" element={<Dashboard />} />
-      {/* dashboard path to be changed to 
       <Route path="/dashboard/:userId" element={<Dashboard />} />
-      */}
       <Route path="*" element={<NotFound />} />
     </Route>
   )
