@@ -52,6 +52,7 @@ function SignUp() {
       // console log the sessionCookie for check
       console.log(window.localStorage.getItem("cookieFallback"));
       updateUserData(response);
+      navigate("/dashboard");
     } else if (response === 409) {
       // modal window for the login to tell the user that try sigin as user exists
       errorExists();
