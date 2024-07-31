@@ -1,4 +1,4 @@
-import {useState } from "react";
+import { useState } from "react";
 import service from "../../appwrite/config";
 import useUserDataContext from "../../contexts/userDataContext";
 import Modal from "./Modal";
@@ -6,10 +6,10 @@ import Error from "./Error";
 import useErrorContext from "../../contexts/errorContext";
 import { useNavigate } from "react-router-dom";
 
+function TodoForm({ onClose }) {
 
-function TodoForm() {
   // to navigate the user
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   // state to open and close modal window
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -48,19 +48,19 @@ function TodoForm() {
       errorExists();
       errorMessage("Error Creating Todo....");
       openModal();
-    } else{
-      closeModal();
+    } else {
+      onClose();
       navigate(`/dashboard/${sessionCookie["$id"]}`);
     }
   }
 
   return (
     <>
-    {error&&(
-      <Modal isOpen={isModalOpen} onClose={closeModal}>
-        <Error errorMessageText={errorText} />
-      </Modal>
-    )}
+      {error && (
+        <Modal isOpen={isModalOpen} onClose={closeModal}>
+          <Error errorMessageText={errorText} />
+        </Modal>
+      )}
 
       <section>
         <form onSubmit={handleSubmit} method="POST">
