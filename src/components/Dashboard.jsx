@@ -62,6 +62,10 @@ function Dashboard() {
     getTodosFromDatabase();
   }, [isModalOpen]);
 
+  function deleteTodo(id){
+    setTodos(todos.filter((todo)=>todo.$id!=id))
+  }
+
   return (
     <>
       <Modal isOpen={isModalOpen} onClose={closeModal}>
@@ -77,6 +81,8 @@ function Dashboard() {
               title={item.title}
               description={item.description}
               status={item.status}
+              id={item.$id}
+              onDelete={deleteTodo}
             />
           ))}
       </div>

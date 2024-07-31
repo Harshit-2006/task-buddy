@@ -1,4 +1,16 @@
-function TodoCard({ title, description, status }) {
+import service from "../appwrite/config";
+
+function TodoCard({ title, description, status, id, onDelete }) {
+
+  async function handleDeleteClick() {
+      try {
+        await service.deleteTodo(id);
+        onDelete(id);
+      } catch (error) {
+          console.log(`Error deleting the todo ::`,error);
+      }
+  }
+
   return (
     <div className="relative overflow-hidden mt-5 py-8 w-full md:w-1/3 lg:w-1/4 ">
       <div className="relative mx-4 max-w-sm rounded-lg bg-black px-5 pb-5">
@@ -15,13 +27,12 @@ function TodoCard({ title, description, status }) {
         <div className="mt-2 border-t border-orange-500 pt-5">
           <ul>
             <li className="mb-6 flex items-center">
-              <span className="ml-2 text-lg text-white">
-                {description}
-              </span>
+              <span className="ml-2 text-lg text-white">{description}</span>
             </li>
           </ul>
         </div>
         <div className="flex justify-center space-x-5 mt-7 border-t border-orange-500 pt-5">
+          {/* update button */}
           <button
             type="button"
             className="rounded-md bg-white px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
@@ -35,8 +46,10 @@ function TodoCard({ title, description, status }) {
               <path d="M 18.400391 2 C 18.100391 2 17.899219 2.1007812 17.699219 2.3007812 L 15.707031 4.2929688 L 14.292969 5.7070312 L 3 17 L 3 21 L 7 21 L 21.699219 6.3007812 C 22.099219 5.9007812 22.099219 5.3003906 21.699219 4.9003906 L 19.099609 2.3007812 C 18.899609 2.1007812 18.700391 2 18.400391 2 z M 18.400391 4.4003906 L 19.599609 5.5996094 L 18.306641 6.8925781 L 17.107422 5.6933594 L 18.400391 4.4003906 z M 15.693359 7.1074219 L 16.892578 8.3066406 L 6.1992188 19 L 5 19 L 5 17.800781 L 15.693359 7.1074219 z"></path>
             </svg>
           </button>
+          {/* delete button */}
           <button
             type="button"
+            onClick={handleDeleteClick}
             className="rounded-md bg-white px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"
