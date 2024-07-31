@@ -85,7 +85,7 @@ function Navbar() {
             )}
           </ul>
         </div>
-        <div className="hidden space-x-2 lg:block">
+        <div className="hidden space-x-2 lg:flex items-center">
           {!dashBoard && (
             <>
               <NavLink
@@ -110,13 +110,26 @@ function Navbar() {
               </NavLink>
             </>
           )}
-          {/* logout button */}
           {dashBoard && (
-            <button
-              onClick={handleSignOut}
-              className={`rounded-md border md:py-0.5 px-3 py-2 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500 hover:bg-orange-500 hover:text-black hover:border-orange-500`}>
-              Sign Out
-            </button>
+            <>
+              <button
+                onClick={handleSignOut}
+                className={`rounded-md border md:py-0.5 px-3 py-2 mx-3 text-sm font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500 hover:bg-orange-500 hover:text-black hover:border-orange-500`}>
+                Sign Out
+              </button>
+              <div className="flex items-center space-x-2">
+                <svg
+                  className="h-6 w-6 text-gray-300 hover:text-orange-500"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-2.76 0-5.26-1.12-7.07-2.93C6.74 15.04 9.28 14 12 14s5.26 1.04 7.07 2.93C17.26 18.88 14.76 20 12 20zm0-16c2.21 0 4 1.79 4 4s-1.79 4-4 4-4-1.79-4-4 1.79-4 4-4z" />
+                </svg>
+                <span className="text-gray-300 hover:text-orange-500 lowercase font-semibold">
+                  @{sessionCookie?.name || "User"}
+                </span>
+              </div>
+            </>
           )}
         </div>
       </div>

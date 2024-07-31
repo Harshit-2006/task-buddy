@@ -7,7 +7,6 @@ import useErrorContext from "../../contexts/errorContext";
 import { useNavigate } from "react-router-dom";
 
 function TodoForm({ onClose }) {
-
   // to navigate the user
   const navigate = useNavigate();
 
@@ -29,14 +28,15 @@ function TodoForm({ onClose }) {
   const [todo, setTodo] = useState({
     title: "",
     description: "",
-    status: "inactive",
+    status: "",
     userId: sessionCookie.$id,
   });
 
   function handleChange(e) {
     const { name, value } = e.target;
     setTodo((prev) => {
-      return { ...prev, status: "active", [name]: value };
+      const date = new Date().toString();
+      return { ...prev, status: date.slice(0, 15), [name]: value };
     });
   }
 

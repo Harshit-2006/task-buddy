@@ -3,7 +3,7 @@ function TodoCard({ title, description, status }) {
     <div className="relative overflow-hidden mt-5 py-8 w-full md:w-1/3 lg:w-1/4 ">
       <div className="relative mx-4 max-w-sm rounded-lg bg-black px-5 pb-5">
         <div className="absolute left-1/2 top-0 inline-flex -translate-x-1/2 -translate-y-1/2 transform items-center justify-center rounded-full bg-orange-500 p-0.5">
-          <div className="flex-shrink-0 rounded-full bg-black px-5 py-4 text-sm font-semibold uppercase text-white">
+          <div className="flex-shrink-0 rounded-full bg-black px-4 py-4 text-sm font-semibold uppercase text-white">
             {status}
           </div>
         </div>
