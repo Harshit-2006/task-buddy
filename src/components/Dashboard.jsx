@@ -50,11 +50,6 @@ function Dashboard() {
     getTodosFromDatabase();
   }, [userId]);
 
-  useEffect(() => {
-    if (update) {
-      openModal();
-    }
-  }, [update]);
 
   function deleteTodo(todoId) {
     setTodos(todos.filter((todo) => todo.$id !== todoId));
@@ -69,6 +64,7 @@ function Dashboard() {
         option: "Update Todo",
         updateTodoId: todoId,
       });
+      openModal();
       setUpdate(true);
     }
   }

@@ -1,17 +1,16 @@
 import service from "../appwrite/config";
 
 function TodoCard({ title, description, status, id, onDelete, onUpdate }) {
-
   async function handleDeleteClick() {
-      try {
-        await service.deleteTodo(id);
-        onDelete(id);
-      } catch (error) {
-          console.log(`Error deleting the todo ::`,error);
-      }
+    try {
+      await service.deleteTodo(id);
+      onDelete(id);
+    } catch (error) {
+      console.log(`Error deleting the todo ::`, error);
+    }
   }
 
-   function handleUpdateClick(){
+  function handleUpdateClick() {
     onUpdate(id);
   }
 
