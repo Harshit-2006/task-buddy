@@ -95,6 +95,7 @@ function SignIn() {
                     type="email"
                     placeholder="Email"
                     required
+                    autoFocus
                   />
                 </div>
               </div>

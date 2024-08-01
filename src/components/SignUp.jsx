@@ -98,6 +98,7 @@ function SignUp() {
                     type="text"
                     placeholder="Full Name"
                     required
+                    autoFocus
                   />
                 </div>
               </div>
