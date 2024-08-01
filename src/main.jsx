@@ -17,6 +17,7 @@ import Dashboard from "./pages/Dashboard.jsx";
 import { DashboardContextProvider } from "./contexts/dashboardContext.jsx";
 import { ErrorContextProvider } from "./contexts/errorContext.jsx";
 import { UserDataContextProvider } from "./contexts/userDataContext.jsx";
+import { ModalContextProvider } from "./contexts/modalContext.jsx";
 import App from "./App.jsx";
 
 const router = createBrowserRouter(
@@ -35,12 +36,14 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <UserDataContextProvider>
-      <DashboardContextProvider>
-        <ErrorContextProvider>
-          <RouterProvider router={router} />
-        </ErrorContextProvider>
-      </DashboardContextProvider>
-    </UserDataContextProvider>
+    <ErrorContextProvider>
+      <ModalContextProvider>
+        <UserDataContextProvider>
+          <DashboardContextProvider>
+            <RouterProvider router={router} />
+          </DashboardContextProvider>
+        </UserDataContextProvider>
+      </ModalContextProvider>
+    </ErrorContextProvider>
   </React.StrictMode>
 );

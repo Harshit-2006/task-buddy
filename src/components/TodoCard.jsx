@@ -1,6 +1,6 @@
 import service from "../appwrite/config";
 
-function TodoCard({ title, description, status, id, onDelete }) {
+function TodoCard({ title, description, status, id, onDelete, onUpdate }) {
 
   async function handleDeleteClick() {
       try {
@@ -9,6 +9,10 @@ function TodoCard({ title, description, status, id, onDelete }) {
       } catch (error) {
           console.log(`Error deleting the todo ::`,error);
       }
+  }
+
+   function handleUpdateClick(){
+    onUpdate(id);
   }
 
   return (
@@ -35,6 +39,7 @@ function TodoCard({ title, description, status, id, onDelete }) {
           {/* update button */}
           <button
             type="button"
+            onClick={handleUpdateClick}
             className="rounded-md bg-white px-3 py-2 text-sm font-semibold text-black shadow-sm hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"

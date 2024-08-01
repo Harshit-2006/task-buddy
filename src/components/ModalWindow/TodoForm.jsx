@@ -1,36 +1,42 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import service from "../../appwrite/config";
 import useUserDataContext from "../../contexts/userDataContext";
 import Modal from "./Modal";
 import Error from "./Error";
 import useErrorContext from "../../contexts/errorContext";
-import { useNavigate } from "react-router-dom";
+import useModalContext from "../../contexts/modalContext";
 
-function TodoForm({ onClose }) {
-  // to navigate the user
+function TodoForm({
+  onClose,
+  title,
+  description,
+  buttonText,
+  todoId,
+  isUpdate,
+  onUpdate,
+  todos,
+}) {
+  const { isModalOpen, openModal, closeModal } = useModalContext();
   const navigate = useNavigate();
-
-  // state to open and close modal window
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => {
-    setIsModalOpen(false);
-    errorNotExists();
-    errorMessage("");
-  };
-
-  const { error, errorText, errorExists, errorNotExists, errorMessage } =
-    useErrorContext();
-
+  const { error, errorText, errorExists, errorMessage } = useErrorContext();
   const { sessionCookie } = useUserDataContext();
 
   const [todo, setTodo] = useState({
-    title: "",
-    description: "",
+    title: title || "",
+    description: description || "",
     status: "",
     userId: sessionCookie.$id,
   });
+
+  useEffect(() => {
+    setTodo({
+      title: title || "",
+      description: description || "",
+      status: "",
+      userId: sessionCookie.$id,
+    });
+  }, [title, description, sessionCookie.$id]);
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -42,15 +48,40 @@ function TodoForm({ onClose }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log(todo);
-    const response = await service.createTodo(todo);
-    if (response.err) {
+    try {
+      if (isUpdate) {
+        const updatedTodo = {
+          title: todo.title,
+          description: todo.description,
+          status: todo.status,
+        };
+        const response = await service.updateTodo(todoId, updatedTodo);
+        if (response.err) {
+          errorExists();
+          errorMessage("Error Updating Todo...");
+          openModal();
+        } else {
+          onUpdate({ ...updatedTodo, $id: todoId });
+          onClose();
+          navigate(`/dashboard/${sessionCookie.$id}`);
+        }
+      } else {
+        const response = await service.createTodo(todo);
+        if (response.err) {
+          errorExists();
+          errorMessage("Error Creating Todo...");
+          openModal();
+        } else {
+          todos((prevTodos) => [...prevTodos, { ...todo, $id: response.$id }]);
+          onClose();
+          navigate(`/dashboard/${sessionCookie.$id}`);
+        }
+      }
+    } catch (error) {
+      console.error("Error submitting form:", error);
       errorExists();
-      errorMessage("Error Creating Todo....");
+      errorMessage("An unexpected error occurred. Please try again.");
       openModal();
-    } else {
-      onClose();
-      navigate(`/dashboard/${sessionCookie["$id"]}`);
     }
   }
 
@@ -61,7 +92,6 @@ function TodoForm({ onClose }) {
           <Error errorMessageText={errorText} />
         </Modal>
       )}
-
       <section>
         <form onSubmit={handleSubmit} method="POST">
           <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
@@ -111,7 +141,7 @@ function TodoForm({ onClose }) {
               <button
                 type="submit"
                 className="relative inline-flex w-full items-center justify-center rounded-md border border-gray-400 px-28 py-2.5 font-semibold text-orange-500 bg-black transition-all duration-200 hover:bg-orange-500 hover:text-white focus:bg-orange-500 focus:text-white focus:outline-none">
-                Create Todo
+                {buttonText}
               </button>
             </div>
           </div>

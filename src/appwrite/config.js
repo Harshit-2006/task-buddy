@@ -44,7 +44,7 @@ class Service {
       );
     } catch (error) {
       console.error("Appwrite service :: updateTodo :: error", error);
-      throw error;
+      return {err:error,message:error};
     }
   }
 
@@ -66,7 +66,6 @@ class Service {
   // Function to get all the todos for a particular user
   async getTodos(userId) {
     try {
-      console.log(userId);
       const response = await this.databases.listDocuments(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,

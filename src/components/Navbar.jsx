@@ -1,10 +1,12 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import useDashboardContext from "../contexts/dashboardContext";
 import useUserDataContext from "../contexts/userDataContext";
+import useFetchSessionData from "../hooks/useFetchSessionData";
 import authService from "../appwrite/auth";
 
 function Navbar() {
+  useFetchSessionData();
   const { sessionCookie, updateSessionCookie } = useUserDataContext();
 
   const navigate = useNavigate();
@@ -33,23 +35,6 @@ function Navbar() {
       isDashboard: !dashBoard,
     },
   ];
-
-  useEffect(() => {
-    async function fetchSessionData() {
-      try {
-        const res = await authService.getCurrentUser();
-        if (res.err) {
-          updateSessionCookie("");
-        } else {
-          updateSessionCookie(res);
-        }
-      } catch (error) {
-        console.log("error fetching the session :: ", error);
-        updateSessionCookie("");
-      }
-    }
-    fetchSessionData();
-  }, []);
 
   async function handleSignOut() {
     await authService.logout();

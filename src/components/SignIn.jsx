@@ -2,32 +2,22 @@ import { ArrowRight } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import authService from "../appwrite/auth";
-import useErrorContext from "../contexts/errorContext";
 import Modal from "./ModalWindow/Modal";
 import Error from "./ModalWindow/Error";
+import useErrorContext from "../contexts/errorContext";
 import useUserDataContext from "../contexts/userDataContext";
+import useModalContext from "../contexts/modalContext";
 
 function SignIn() {
+  const { isModalOpen, openModal, closeModal } = useModalContext();
   const navigate = useNavigate();
-
-  const { updateUserData} = useUserDataContext();
-
-  const { error, errorText, errorExists, errorNotExists, errorMessage } =
-    useErrorContext();
+  const { updateUserData } = useUserDataContext();
+  const { error, errorText, errorExists, errorMessage } = useErrorContext();
 
   //adding useEffect that will openModal on the mount of this component if the error exists
   useEffect(() => {
     if (error) openModal();
   }, [error]);
-
-  // to control the modal window
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => {
-    errorNotExists();
-    errorMessage("");
-  };
 
   const [userData, setUserData] = useState({
     email: "",
@@ -43,13 +33,10 @@ function SignIn() {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    console.log(userData);
     await authService.logout();
     const response = await authService.login(userData);
-    // console log to check the response code
-    console.log(response);
     if (response.$id) {
-      setUserData({ 
+      setUserData({
         email: "",
         password: "",
       });

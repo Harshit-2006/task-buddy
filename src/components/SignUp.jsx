@@ -1,31 +1,19 @@
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import authService from "../appwrite/auth";
 import { useNavigate } from "react-router-dom";
-import useErrorContext from "../contexts/errorContext";
+import authService from "../appwrite/auth";
 import Modal from "./ModalWindow/Modal";
 import Error from "./ModalWindow/Error";
+import useErrorContext from "../contexts/errorContext";
 import useUserDataContext from "../contexts/userDataContext";
+import useModalContext from "../contexts/modalContext";
 
 function SignUp() {
+  const {isModalOpen,openModal,closeModal}=useModalContext();
   const { updateUserData } = useUserDataContext();
-
-  const { error, errorText, errorExists, errorNotExists, errorMessage } =
-    useErrorContext();
-
-  // to control the modal window
-  const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => {
-    setIsModalOpen(false);
-    errorNotExists();
-    errorMessage("");
-  };
-
+  const { error, errorText, errorExists, errorMessage } = useErrorContext();
   const navigate = useNavigate();
-
   const [userData, setUserData] = useState({
     email: "",
     password: "",
@@ -43,7 +31,6 @@ function SignUp() {
     e.preventDefault();
     await authService.logout();
     const response = await authService.createAccount(userData);
-    console.log(response);
     // error handeling if the user already exists
     if (response.$id) {
       // store the account created to the context or state

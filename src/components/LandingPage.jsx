@@ -1,30 +1,15 @@
 import { ChevronDown, ChevronUp } from "lucide-react";
-import useDashboardContext from "../contexts/dashboardContext";
 import { useEffect } from "react";
-import useUserDataContext from "../contexts/userDataContext";
-import authService from "../appwrite/auth";
+import useDashboardContext from "../contexts/dashboardContext";
+import useFetchSessionData from "../hooks/useFetchSessionData";
 
 function LandingPage() {
-  const { updateSessionCookie } = useUserDataContext();
+  useFetchSessionData();
 
   const { notDashboard } = useDashboardContext();
 
   useEffect(() => {
     notDashboard();
-    async function fetchSessionData() {
-      try {
-        const res = await authService.getCurrentUser();
-        if (res.err) {
-          updateSessionCookie("");
-        } else {
-          updateSessionCookie(res);
-        }
-      } catch (error) {
-        console.log("error fetching the session :: ", error);
-        updateSessionCookie("");
-      }
-    }
-    fetchSessionData();
   }, []);
 
   return (
