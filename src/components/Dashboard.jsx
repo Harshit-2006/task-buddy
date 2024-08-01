@@ -50,7 +50,6 @@ function Dashboard() {
     getTodosFromDatabase();
   }, [userId]);
 
-
   function deleteTodo(todoId) {
     setTodos(todos.filter((todo) => todo.$id !== todoId));
   }
@@ -96,7 +95,7 @@ function Dashboard() {
         />
       </Modal>
 
-      <div className="flex flex-wrap gap-4 p-4">
+      <div className="flex justify-center flex-wrap">
         {todos.map((item) => (
           <TodoCard
             key={item.$id}

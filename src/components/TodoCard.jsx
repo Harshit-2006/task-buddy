@@ -1,24 +1,25 @@
 import service from "../appwrite/config";
 
 function TodoCard({ title, description, status, id, onDelete, onUpdate }) {
+
   async function handleDeleteClick() {
-    try {
-      await service.deleteTodo(id);
-      onDelete(id);
-    } catch (error) {
-      console.log(`Error deleting the todo ::`, error);
-    }
+      try {
+        await service.deleteTodo(id);
+        onDelete(id);
+      } catch (error) {
+          console.log(`Error deleting the todo ::`,error);
+      }
   }
 
-  function handleUpdateClick() {
+   function handleUpdateClick(){
     onUpdate(id);
   }
 
   return (
     <div className="relative overflow-hidden mt-5 py-8 w-full md:w-1/3 lg:w-1/4 ">
       <div className="relative mx-4 max-w-sm rounded-lg bg-black px-5 pb-5">
-        <div className="absolute left-1/2 top-0 inline-flex -translate-x-1/2 -translate-y-1/2 transform items-center justify-center rounded-full bg-orange-500 p-0.5">
-          <div className="flex-shrink-0 rounded-full bg-black px-4 py-4 text-sm font-semibold uppercase text-white">
+        <div className="absolute left-1/2 top-0 inline-flex -translate-x-1/2 -translate-y-1/2 transform items-center justify-center rounded-full">
+          <div className="flex-shrink-0 rounded-full bg-black px-4 py-4 text-sm font-semibold uppercase text-white border-2 border-orange-500">
             {status}
           </div>
         </div>
